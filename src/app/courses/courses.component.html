@@ -1,0 +1,39 @@
+<h2>Kurser</h2>
+
+<div id="search-container">
+    <div>
+        <label for="input">Sök</label>
+        <input type="text" id="input" placeholder="Sök på en kurs" [(ngModel)]="input" (input)="search()">
+    </div>
+    <div>
+        <label for="subject">Ämne</label>
+        <select id="subject" [(ngModel)]="selectedSubject" (change)="subjectFilter()">
+            <option>Alla</option>
+            <option *ngFor="let subject of subjects">{{ subject }}</option>
+        </select>
+    </div>
+</div>
+
+<p id="courses-count">Visar {{ currentCount }} kurser av totalt {{ totalCount }}.</p>
+
+<table>
+    <tr>
+        <th (click)="sort('code')">Kod</th>
+        <th (click)="sort('name')">Kursnamn</th>
+        <th (click)="sort('points')">Poäng</th>
+        <th (click)="sort('subject')">Ämne</th>
+        <th>Lägg till</th>
+    </tr>
+    <tr *ngFor="let course of filteredCourselist">
+        <td>{{ course.courseCode }}</td>
+        <td>{{ course.courseName }}</td>
+        <td>{{ course.points }}</td>
+        <td>{{ course.subject }}</td>
+        <td>
+            <button *ngIf="!savedCodes.includes(course.courseCode)" (click)="addCourse(course.courseCode)">
+                LÄGG TILL
+            </button>
+            <span *ngIf="savedCodes.includes(course.courseCode)">Tillagd</span>
+        </td>
+    </tr>
+</table>

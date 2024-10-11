@@ -1,0 +1,23 @@
+<p id="courses-count">Antal kurser: {{ coursesCount }}</p>
+<p id="courses-count">Totalt antal poäng: {{ totalPoints }}</p>
+
+<table>
+    <tr>
+        <th class="non-interactive">Kod</th>
+        <th class="non-interactive">Kursnamn</th>
+        <th class="non-interactive">Poäng</th>
+        <th class="non-interactive">Ämne</th>
+        <th>Lägg till</th>
+    </tr>
+    <tr *ngFor="let course of savedCourses">
+        <td>{{ course.courseCode }}</td>
+        <td>{{ course.courseName }}</td>
+        <td>{{ course.points }}</td>
+        <td>{{ course.subject }}</td>
+        <td>
+            <button (click)="removeCourse(course.courseCode)">
+                TA BORT
+            </button>
+        </td>
+    </tr>
+</table>
