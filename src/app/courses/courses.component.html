@@ -22,6 +22,7 @@
         <th (click)="sort('name')">Kursnamn</th>
         <th (click)="sort('points')">Poäng</th>
         <th (click)="sort('subject')">Ämne</th>
+        <th>Kursplan</th>
         <th>Lägg till</th>
     </tr>
     <tr *ngFor="let course of filteredCourselist">
@@ -29,6 +30,7 @@
         <td>{{ course.courseName }}</td>
         <td>{{ course.points }}</td>
         <td>{{ course.subject }}</td>
+        <td><a href="{{ course.syllabus }}" target="_blank">Kursplan</a></td>
         <td>
             <button *ngIf="!savedCodes.includes(course.courseCode)" (click)="addCourse(course.courseCode)">
                 LÄGG TILL

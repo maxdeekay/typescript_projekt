@@ -30,3 +30,12 @@ input[type=text]:focus, select:focus {
     outline: 2px solid #0077B6;
     border: none;
 }
+
+@media (max-width: 850px) {
+    #search-container {
+        flex-direction: column;
+    }
+
+    #search-container>div:nth-child(1) { width: 100%; }
+    #search-container>div:nth-child(2) { width: 100%; }
+}

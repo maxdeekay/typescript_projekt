@@ -7,6 +7,7 @@
         <th class="non-interactive">Kursnamn</th>
         <th class="non-interactive">Poäng</th>
         <th class="non-interactive">Ämne</th>
+        <th>Kursplan</th>
         <th>Lägg till</th>
     </tr>
     <tr *ngFor="let course of savedCourses">
@@ -14,6 +15,7 @@
         <td>{{ course.courseName }}</td>
         <td>{{ course.points }}</td>
         <td>{{ course.subject }}</td>
+        <td><a href="{{ course.syllabus }}" target="_blank">Kursplan</a></td>
         <td>
             <button (click)="removeCourse(course.courseCode)">
                 TA BORT
