@@ -44,7 +44,7 @@ export class CoursesComponent {
         }
       }
 
-      this.savedCodes = this.ramschemaservice.get();
+      this.savedCodes = this.ramschemaservice.get(); // get what courses are saved in localStorage
     })
   }
 
@@ -94,7 +94,7 @@ export class CoursesComponent {
 
   // search function
   search(): void {
-    this.subjectFilter();
+    this.subjectFilter(false);
     const codeList = this.filteredCourselist.filter(course => course.courseCode.toLowerCase().includes(this.input.toLowerCase()));
     const courseList = this.filteredCourselist.filter(course => course.courseName.toLowerCase().includes(this.input.toLowerCase()));
 
@@ -103,8 +103,10 @@ export class CoursesComponent {
   }
 
   // filter by subject
-  subjectFilter(): void {
+  subjectFilter(clearSearch: boolean = true): void {
     this.filteredCourselist = this.courselist;
+
+    if (clearSearch) this.input = "";
     if (this.selectedSubject === "Alla") {
       this.currentCount = this.filteredCourselist.length;
       return;
