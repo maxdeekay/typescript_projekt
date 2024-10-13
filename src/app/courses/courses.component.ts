@@ -14,14 +14,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class CoursesComponent {
   // properties
-  courselist: Course[] = [];
-  filteredCourselist: Course[] = [];
-  subjects: string[] = [];
-  savedCodes: string[] = [];
-  currentCount: number = 0;
-  totalCount: number = 0;
-  input: string = "";
-  selectedSubject: string = "Alla";
+  courselist: Course[] = []; // full list of all courses
+  filteredCourselist: Course[] = []; // currently showing list
+  subjects: string[] = []; // all available subjects
+  savedCodes: string[] = []; // codes of all saved courses
+  currentCount: number = 0; // amount of currently showing courses
+  totalCount: number = 0; // total amount of courses
+  input: string = ""; // current value of search input
+  selectedSubject: string = "Alla"; // currently selected subject with "alla" as default
+  ascending: boolean = false; // tracking if the sorting is ascending or descending
 
   constructor(
     private courseservice : CourseService,
@@ -47,37 +48,61 @@ export class CoursesComponent {
     })
   }
 
+  // sorting function
   sort(option: string): void {
     switch (option) {
       case "code": {
-        this.filteredCourselist.sort((a, b) => a.courseCode.localeCompare(b.courseCode, "sv"));
+        this.filteredCourselist.sort((a, b) => 
+          this.ascending ?
+            a.courseCode.localeCompare(b.courseCode, "sv") :
+            b.courseCode.localeCompare(a.courseCode, "sv")
+        );
         break;
       }
       case "name": {
-        this.filteredCourselist.sort((a, b) => a.courseName.localeCompare(b.courseName, "sv"));
+        this.filteredCourselist.sort((a, b) => 
+          this.ascending ?
+            a.courseName.localeCompare(b.courseName, "sv") :
+            b.courseName.localeCompare(a.courseName, "sv")
+          );
         break;
       }
       case "points": {
-        this.filteredCourselist.sort((a, b) => b.points - a.points);
+        this.filteredCourselist.sort((a, b) => 
+          this.ascending ?
+            b.points - a.points :
+            a.points - b.points
+          );
         break;
       }
       case "subject": {
-        this.filteredCourselist.sort((a, b) => a.subject.localeCompare(b.subject, "sv"));
+        this.filteredCourselist.sort((a, b) => 
+          this.ascending ?
+            a.subject.localeCompare(b.subject, "sv") :
+            b.subject.localeCompare(a.subject, "sv")
+          );
         break;
       }
       default: {
-        console.log("Invalid option.");
+        console.log("Invalid sorting option.");
         break;
       }
     }
+
+    this.ascending = !this.ascending; // toggles between ascending/descending with every sort
   }
 
+  // search function
   search(): void {
     this.subjectFilter();
-    this.filteredCourselist = this.filteredCourselist.filter(course => course.courseCode.toLowerCase().includes(this.input.toLowerCase()));
+    const codeList = this.filteredCourselist.filter(course => course.courseCode.toLowerCase().includes(this.input.toLowerCase()));
+    const courseList = this.filteredCourselist.filter(course => course.courseName.toLowerCase().includes(this.input.toLowerCase()));
+
+    this.filteredCourselist = codeList.concat(courseList);
     this.currentCount = this.filteredCourselist.length;
   }
 
+  // filter by subject
   subjectFilter(): void {
     this.filteredCourselist = this.courselist;
     if (this.selectedSubject === "Alla") {
@@ -89,6 +114,7 @@ export class CoursesComponent {
     this.currentCount = this.filteredCourselist.length;
   }
 
+  // when "LÄGG TILL" is clicked
   addCourse(code: string): void {
     // add course code to localStorage
     this.ramschemaservice.add(code);
