@@ -1,6 +1,6 @@
 # University
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.9.
+Denna webbplats skapades som projektarbete i kursen Programmering i TypeScript DT208G. Syftet var att skapa en webbplats i webbramverket Angular för ett fiktivt universitet. Kursinformation hämtas via HttpClient från en JSON-fil i /assets. Dessa kurser skrivs sedan ut och besökare kan "lägga till" dessa och skapa ett personligt ramschema. All lagring sker via localStorage.
 
 ## Development server
 
