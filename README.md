@@ -1,6 +1,9 @@
 # University
 
 Denna webbplats skapades som projektarbete i kursen Programmering i TypeScript DT208G. Syftet var att skapa en webbplats i webbramverket Angular för ett fiktivt universitet. Kursinformation hämtas via HttpClient från en JSON-fil i /assets. Dessa kurser skrivs sedan ut och besökare kan "lägga till" dessa och skapa ett personligt ramschema. All lagring sker via localStorage.
+<br>
+<br>
+Webbplatsen finns publicerad under länken: https://typescript-moment5-maas2305.netlify.app/
 
 ## Development server
 
